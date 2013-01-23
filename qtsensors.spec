@@ -1,7 +1,7 @@
-%define _qtmodule_snapshot_version 5.0.0-beta1
+%define _qtmodule_snapshot_version 0.0-git415.g64e0c610d2d8751426258ba180267ec8fa7b34cb
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
-Version:    5.0.0~beta1
+Version:    0.0~git415.g64e0c610d2d8751426258ba180267ec8fa7b34cb
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
@@ -71,6 +71,14 @@ Requires:   %{name} = %{version}-%{release}
 %description plugin-generic
 This package contains the generic plugin for sensors
 
+%package plugin-linuxsys
+Summary:    Linuxsys sensors plugin
+Group:      Qt/Qt
+Requires:   %{name} = %{version}-%{release}
+
+%description plugin-linuxsys
+This package contains the linuxsys plugin for sensors
+
 %package plugin-gestures-shake
 Summary:    Shake gesture plugin
 Group:      Qt/Qt
@@ -123,13 +131,13 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/libQtSensors.so.5
-%{_libdir}/libQtSensors.so.5.*
+%{_libdir}/libQt5Sensors.so.5
+%{_libdir}/libQt5Sensors.so.5.*
 
 %files devel
 %defattr(-,root,root,-)
-%{_libdir}/libQtSensors.so
-%{_libdir}/libQtSensors.prl
+%{_libdir}/libQt5Sensors.so
+%{_libdir}/libQt5Sensors.prl
 %{_libdir}/pkgconfig/*
 %{_includedir}/qt5/*
 %{_datadir}/qt5/mkspecs/
@@ -151,6 +159,10 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %files plugin-generic
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
+
+%files plugin-linuxsys
+%defattr(-,root,root,-)
+%{_libdir}/qt5/plugins/sensors/libqtsensors_linuxsys.so
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)
