@@ -103,7 +103,7 @@ This package contains the gesture plugin for sensors
 
 %build
 export QTDIR=/usr/share/qt5
-qmake
+qmake -qt=5
 make %{?_smp_flags}
 
 %install
