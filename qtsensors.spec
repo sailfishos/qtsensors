@@ -1,7 +1,7 @@
-%define _qtmodule_snapshot_version 0.0-git415.g64e0c610d2d8751426258ba180267ec8fa7b34cb
+%define _qtmodule_snapshot_version 0.0~git489.e533f476
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
-Version:    0.0~git415.g64e0c610d2d8751426258ba180267ec8fa7b34cb
+Version:    0.0~git489.e533f476
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
