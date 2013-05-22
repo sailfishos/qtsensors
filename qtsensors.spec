@@ -12,7 +12,7 @@ BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
 BuildRequires:  qt5-qtopengl-devel
 BuildRequires:  qt5-qtnetwork-devel
-BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
 BuildRequires:  fdupes
 
@@ -42,18 +42,11 @@ Summary:    QtQml sensors import
 Group:      Qt/Qt
 Requires:   %{name} = %{version}-%{release}
 Requires:   qt5-qtdeclarative
+Provides:   qt5-qtdeclarative-import-mobility-sensors > 0.0~git489.e533f476
+Obsoletes:  qt5-qtdeclarative-import-mobility-sensors <= 0.0~git489.e533f476
 
 %description -n qt5-qtdeclarative-import-sensors
 This package contains the Sensors import for Qtml
-
-%package -n qt5-qtdeclarative-import-mobility-sensors
-Summary:    QtQml mobility sensors import
-Group:      Qt/Qt
-Requires:   %{name} = %{version}-%{release}
-Requires:   qt5-qtdeclarative
-
-%description -n qt5-qtdeclarative-import-mobility-sensors
-This package contains the mobility sensors import for QtQml
 
 %package plugin-dummy
 Summary:    Dummy sensors plugin
@@ -145,11 +138,7 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 %files -n qt5-qtdeclarative-import-sensors
 %defattr(-,root,root,-)
-#%{_libdir}/qt5/imports/QtSensors/
-
-%files -n qt5-qtdeclarative-import-mobility-sensors
-%defattr(-,root,root,-)
-#%{_libdir}/qt5/imports/QtMobility/sensors/
+%{_libdir}/qt5/qml/QtSensors/
 
 
 %files plugin-dummy

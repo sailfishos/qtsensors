@@ -1,3 +1,10 @@
+* Sun May 22 2013 Robin Burchell <robin+mer@viroteck.net> - 0.0~git489.e533f476
+- Fix broken dependency on qtdeclarative. This meant that the QML import for
+  sensors was not built.
+- Obsolete qt5-qtdeclarative-import-mobility-sensors with
+  qt5-qtdeclarative-import-sensors as the former is misnamed (mobility no longer
+  exists) and empty.
+
 * Sun May 05 2013 Carsten Munk <carsten.munk@jollamobile.com> - 0.0~git489.e533f476
 - Upgrade to git489.e533f476
 
