@@ -1,7 +1,7 @@
-%define _qtmodule_snapshot_version 0.0git501.a199068d
+%define _qtmodule_snapshot_version 0.0~git489.e533f476
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
-Version:    0.0git501.a199068d
+Version:    0.0~git489.e533f476
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
@@ -72,14 +72,6 @@ Requires:   %{name} = %{version}-%{release}
 %description plugin-linuxsys
 This package contains the linuxsys plugin for sensors
 
-%package plugin-sensorfw
-Summary:    Sensorfw sensors plugin
-Group:      Qt/Qt
-Requires:   %{name} = %{version}-%{release}
-
-%description plugin-sensorfw
-This package contains the sensorfw plugin for sensors
-
 %package plugin-gestures-shake
 Summary:    Shake gesture plugin
 Group:      Qt/Qt
@@ -104,9 +96,7 @@ This package contains the gesture plugin for sensors
 
 %build
 export QTDIR=/usr/share/qt5
-qmake -qt=5  \
-    CONFIG+=sensorfw
-
+qmake -qt=5
 make %{?_smp_flags}
 
 %install
@@ -162,10 +152,6 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %files plugin-linuxsys
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_linuxsys.so
-
-%files plugin-sensorfw
-%defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensors/libqtsensors_sensorfw.so
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)

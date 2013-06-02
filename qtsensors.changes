@@ -1,7 +1,3 @@
-* Fri  May 31 Lorn Potter <lorn/potter@jollamobile.com> -  0.0git501.a199068d
-- Upgrade to  git501.a199068d
-- Add sensorfw plugin package
-
 * Sun May 22 2013 Robin Burchell <robin+mer@viroteck.net> - 0.0~git489.e533f476
 - Fix broken dependency on qtdeclarative. This meant that the QML import for
   sensors was not built.
