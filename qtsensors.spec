@@ -14,7 +14,6 @@ BuildRequires:  qt5-qtopengl-devel
 BuildRequires:  qt5-qtnetwork-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
-BuildRequires:  pkgconfig(sensord-qt5)
 BuildRequires:  fdupes
 
 %description
