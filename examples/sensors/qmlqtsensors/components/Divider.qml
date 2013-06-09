@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2012 Digia Plc and/or its subsidiary(-ies).
+** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
 ** Contact: http://www.qt-project.org/legal
 **
 ** This file is part of the QtSensors module of the Qt Toolkit.
@@ -38,42 +38,24 @@
 **
 ****************************************************************************/
 
-#include <QObject>
-#include <qaccelerometer.h>
-#include <qmagnetometer.h>
-#include <qorientationsensor.h>
+import QtQuick 2.0
 
-class MyObject : public QObject
-{
-    void create();
-};
+Column {
+    spacing: 5
+    width: parent.width
+    property alias label: textLabel.text
 
-void MyObject::create()
-{
-//! [Creating a sensor]
-// On the heap (deleted when this object is deleted)
-QAccelerometer *sensor = new QAccelerometer(this);
-
-// On the stack (deleted when the current scope ends)
-QOrientationSensor orient_sensor;
-//! [Creating a sensor]
-
-    Q_UNUSED(sensor)
-    Q_UNUSED(orient_sensor);
-
-{
-//! [2]
-QMagnetometer *magnetometer = new QMagnetometer(this);
-//! [2]
-Q_UNUSED(magnetometer);
+    Rectangle {
+        border.width: 1
+        height: 2
+        width: parent.width
+        anchors.margins: 20
+        border.color: "#2d2b19"
+    }
+    Text {
+        id: textLabel
+        width: parent.width
+        horizontalAlignment: Text.AlignHCenter
+        font.bold: true
+    }
 }
-
-{
-//! [3]
-QSensor *magnetometer = new QSensor(QMagnetometer::type, this);
-//! [3]
-Q_UNUSED(magnetometer);
-}
-
-}
-

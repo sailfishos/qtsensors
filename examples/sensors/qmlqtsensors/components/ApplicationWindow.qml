@@ -43,9 +43,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: appWnd
-    x: 0
-    y: 0
     width: 320
     height: 480
-    color: "#ececec"
+    color: "#868482"
 }
