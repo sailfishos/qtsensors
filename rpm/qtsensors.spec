@@ -13,6 +13,7 @@ BuildRequires:  qt5-qtnetwork-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
 BuildRequires:  fdupes
+BuildRequires:  pkgconfig(sensord-qt5)
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
@@ -46,13 +47,13 @@ Obsoletes:  qt5-qtdeclarative-import-mobility-sensors <= 0.0~git489.e533f476
 %description -n qt5-qtdeclarative-import-sensors
 This package contains the Sensors import for Qtml
 
-%package plugin-dummy
-Summary:    Dummy sensors plugin
+%package plugin-sensorfw
+Summary:    sensorfw sensors plugin
 Group:      Qt/Qt
 Requires:   %{name} = %{version}-%{release}
 
-%description plugin-dummy
-This package contains the dummy plugin for sensors
+%description plugin-sensorfw
+This package contains the sensorfw plugin for sensors
 
 %package plugin-generic
 Summary:    Generic sensors plugin
@@ -61,14 +62,6 @@ Requires:   %{name} = %{version}-%{release}
 
 %description plugin-generic
 This package contains the generic plugin for sensors
-
-%package plugin-linuxsys
-Summary:    Linuxsys sensors plugin
-Group:      Qt/Qt
-Requires:   %{name} = %{version}-%{release}
-
-%description plugin-linuxsys
-This package contains the linuxsys plugin for sensors
 
 %package plugin-gestures-shake
 Summary:    Shake gesture plugin
@@ -94,7 +87,7 @@ This package contains the gesture plugin for sensors
 %build
 export QTDIR=/usr/share/qt5
 touch .git
-qmake -qt=5
+qmake -qt=5 CONFIG+=sensorfw
 make %{?_smp_flags}
 
 %install
@@ -139,17 +132,14 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_libdir}/qt5/qml/QtSensors/
 
 
-%files plugin-dummy
+%files plugin-sensorfw
 %defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensors/libqtsensors_dummy.so
+%{_libdir}/qt5/plugins/sensors/libqtsensors_sensorfw.so
+%{_sysconfdir}/xdg/QtProject/Sensors.conf
 
 %files plugin-generic
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
-
-%files plugin-linuxsys
-%defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensors/libqtsensors_linuxsys.so
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)
