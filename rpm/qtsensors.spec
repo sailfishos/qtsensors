@@ -41,8 +41,6 @@ Summary:    QtQml sensors import
 Group:      Qt/Qt
 Requires:   %{name} = %{version}-%{release}
 Requires:   qt5-qtdeclarative
-Provides:   qt5-qtdeclarative-import-mobility-sensors > 0.0~git489.e533f476
-Obsoletes:  qt5-qtdeclarative-import-mobility-sensors <= 0.0~git489.e533f476
 
 %description -n qt5-qtdeclarative-import-sensors
 This package contains the Sensors import for Qtml
