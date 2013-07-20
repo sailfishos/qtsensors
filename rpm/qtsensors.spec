@@ -1,6 +1,6 @@
 Name:       qt5-qtsensors
 Summary:    Qt Sensors module
-Version:    0.0~git489.e533f476
+Version:    0.0git489.e533f476
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
