@@ -43,17 +43,18 @@
 #ifndef SENSORFWSENSORBASE_H
 #define SENSORFWSENSORBASE_H
 
-#include <qsensorbackend.h>
+#include <QtSensors/qsensorbackend.h>
 #include <sensormanagerinterface.h>
 #include <abstractsensor_i.h>
 
-#include <QAmbientLightSensor>
-#include <QIRProximitySensor>
-#include <QTapSensor>
-#include <QProximitySensor>
+#include <QtSensors/QAmbientLightSensor>
+#include <QtSensors/QIRProximitySensor>
+#include <QtSensors/QTapSensor>
+#include <QtSensors/QProximitySensor>
 
 class SensorfwSensorBase : public QSensorBackend
 {
+    Q_OBJECT
 public:
     SensorfwSensorBase(QSensor *sensor);
     virtual ~SensorfwSensorBase();
@@ -162,6 +163,7 @@ protected:
     int m_bufferSize;
     int bufferSize() const;
     virtual qreal correctionFactor() const;
+    virtual void init();
 
 private:
 
@@ -170,6 +172,12 @@ private:
     bool doConnectAfterCheck();
     int m_efficientBufferSize, m_maxBufferSize;
 
+    QDBusServiceWatcher *watcher;
+    bool m_available;
+    bool running;
+private slots:
+    void connectToSensord(QString = "");
+    void sensordUnregistered(QString = "");
 };
 
 #endif
