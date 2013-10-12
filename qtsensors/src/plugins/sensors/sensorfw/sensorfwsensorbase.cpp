@@ -54,10 +54,29 @@ QStringList SensorfwSensorBase::m_bufferingSensors = QStringList()
        <<"sensorfw.gyroscope"<<"sensorfw.rotationsensor";
 
 SensorfwSensorBase::SensorfwSensorBase(QSensor *sensor)
-    : QSensorBackend(sensor), m_sensorInterface(0), m_bufferSize(-1), m_prevOutputRange(0), m_efficientBufferSize(1), m_maxBufferSize(1)
+    : QSensorBackend(sensor),
+      m_sensorInterface(0),
+      m_bufferSize(-1),
+      m_prevOutputRange(0),
+      m_efficientBufferSize(1),
+      m_maxBufferSize(1),
+      m_available(0),
+      running(0)
+
 {
-    if (!m_remoteSensorManager)
-        m_remoteSensorManager = &SensorManagerInterface::instance();
+    watcher = new QDBusServiceWatcher("com.nokia.SensorService",QDBusConnection::systemBus(),
+            QDBusServiceWatcher::WatchForRegistration |
+            QDBusServiceWatcher::WatchForUnregistration, this);
+
+    connect(watcher, SIGNAL(serviceRegistered(QString)),
+            this, SLOT(connectToSensord(QString)));
+    connect(watcher, SIGNAL(serviceUnregistered(QString)),
+            this, SLOT(sensordUnregistered(QString)));
+
+
+    m_available = QDBusConnection::systemBus().interface()->isServiceRegistered("com.nokia.SensorService");
+    if (m_available)
+        connectToSensord();
 }
 
 SensorfwSensorBase::~SensorfwSensorBase()
@@ -110,7 +129,10 @@ void SensorfwSensorBase::start()
         doConnectAfterCheck();
 
         int returnCode = m_sensorInterface->start().error().type();
-        if (returnCode == 0) return;
+        if (returnCode == 0) {
+            running = true;
+            return;
+        }
         qWarning() << "m_sensorInterface did not start, error code:" << returnCode;
     }
     sensorStopped();
@@ -118,7 +140,9 @@ void SensorfwSensorBase::start()
 
 void SensorfwSensorBase::stop()
 {
-    if (m_sensorInterface) m_sensorInterface->stop();
+    if (m_sensorInterface)
+        m_sensorInterface->stop();
+    running = false;
 }
 
 void SensorfwSensorBase::setRanges(qreal correctionFactor)
@@ -143,6 +167,7 @@ bool SensorfwSensorBase::doConnectAfterCheck()
 
     // buffer size
     int size = bufferSize();
+
     if (size == m_bufferSize) return true;
 
     if (m_bufferingSensors.contains(sensor()->identifier()))
@@ -187,3 +212,21 @@ qreal SensorfwSensorBase::correctionFactor() const
     return 1;
 }
 
+void SensorfwSensorBase::connectToSensord(QString)
+{
+    m_remoteSensorManager = &SensorManagerInterface::instance();
+    init();
+    if (running) {
+        stop();
+        start();
+    }
+}
+
+void SensorfwSensorBase::sensordUnregistered(QString)
+{
+    m_bufferSize = -1;
+}
+
+void SensorfwSensorBase::init()
+{
+}
