@@ -215,6 +215,11 @@ qreal SensorfwSensorBase::correctionFactor() const
 void SensorfwSensorBase::connectToSensord(QString)
 {
     m_remoteSensorManager = &SensorManagerInterface::instance();
+    if (!m_remoteSensorManager->isValid()) {
+        qWarning() << "SensorManagerInterface is invalid";
+        m_remoteSensorManager = nullptr;
+        return;
+    }
     init();
     if (running) {
         stop();
