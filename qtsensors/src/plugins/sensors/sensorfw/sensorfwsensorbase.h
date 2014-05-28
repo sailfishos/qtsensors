@@ -77,10 +77,13 @@ protected:
     template<typename T>
     void initSensor(bool &initDone)
     {
-
         const QString name = sensorName();
 
         if (!initDone) {
+            if (!m_remoteSensorManager) {
+                qDebug() << "There is no sensor manager yet, do not initialize" << name;
+                return;
+            }
             if (!m_remoteSensorManager->loadPlugin(name)) {
                 sensorError(KErrNotFound);
                 return;
