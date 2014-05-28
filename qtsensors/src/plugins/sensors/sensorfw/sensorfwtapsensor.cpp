@@ -45,8 +45,8 @@ char const * const SensorfwTapSensor::id("sensorfw.tapsensor");
 
 SensorfwTapSensor::SensorfwTapSensor(QSensor *sensor)
     : SensorfwSensorBase(sensor),
+      m_initDone(false),
       m_isOnceStarted(false)
-    , m_initDone(0)
 {
     init();
     setReading<QTapReading>(&m_reading);

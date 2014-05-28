@@ -46,8 +46,8 @@ char const * const SensorfwProximitySensor::id("sensorfw.proximitysensor");
 
 SensorfwProximitySensor::SensorfwProximitySensor(QSensor *sensor)
     : SensorfwSensorBase(sensor),
+      m_initDone(false),
       m_exClose(false)
-    , m_initDone(0)
 {
     init();
     setReading<QProximityReading>(&m_reading);
