@@ -103,6 +103,7 @@ void SensorfwTapSensor::slotDataAvailable(const Tap& data)
 
 bool SensorfwTapSensor::doConnect()
 {
+    Q_ASSERT(m_sensorInterface);
     return QObject::connect(m_sensorInterface, SIGNAL(dataAvailable(const Tap&)),
                             this, SLOT(slotDataAvailable(const Tap&)));
 }

@@ -61,6 +61,7 @@ void SensorfwLightSensor::slotDataAvailable(const Unsigned& data)
 
 bool SensorfwLightSensor::doConnect()
 {
+    Q_ASSERT(m_sensorInterface);
     return QObject::connect(m_sensorInterface, SIGNAL(ALSChanged(const Unsigned&)),
                             this, SLOT(slotDataAvailable(const Unsigned&)));
 }

@@ -286,6 +286,8 @@ bool SensorfwSensorBase::initSensorInterface(QString const &name)
     sensor()->setMaxBufferSize(m_maxBufferSize);
     sensor()->setEfficientBufferSize(m_efficientBufferSize);
 
+    // TODO deztructor: Leaking abstraction detected. Just copied code
+    // from initSensor<>() here, need to
     QByteArray type = sensor()->type();
     if ((type == QAmbientLightSensor::type) // SensorFW returns lux values, plugin enumerated values
         || (type == QIRProximitySensor::type) // SensorFW returns raw reflectance values, plugin % of max reflectance

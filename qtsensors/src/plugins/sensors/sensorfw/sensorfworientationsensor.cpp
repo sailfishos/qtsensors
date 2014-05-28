@@ -76,6 +76,7 @@ void SensorfwOrientationSensor::slotDataAvailable(const Unsigned& data)
 
 bool SensorfwOrientationSensor::doConnect()
 {
+    Q_ASSERT(m_sensorInterface);
     return QObject::connect(m_sensorInterface, SIGNAL(orientationChanged(const Unsigned&)),
                             this, SLOT(slotDataAvailable(const Unsigned&)));
 }

@@ -70,6 +70,7 @@ void SensorfwCompass::slotDataAvailable(const Compass& data)
 
 bool SensorfwCompass::doConnect()
 {
+    Q_ASSERT(m_sensorInterface);
     return QObject::connect(m_sensorInterface, SIGNAL(dataAvailable(const Compass&)),
                             this, SLOT(slotDataAvailable(const Compass&)));
 }
