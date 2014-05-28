@@ -68,9 +68,14 @@ void SensorfwTapSensor::start()
     }
     else m_isDoubleTapSensor = b;
 
-    if (!m_isOnceStarted || (m_isOnceStarted && isDoubleTapSensor != m_isDoubleTapSensor))
-        ((TapSensorChannelInterface*)m_sensorInterface)->
-                setTapType(m_isDoubleTapSensor?TapSensorChannelInterface::Double:TapSensorChannelInterface::Single);
+    if (!m_isOnceStarted || (m_isOnceStarted && isDoubleTapSensor != m_isDoubleTapSensor)) {
+        TapSensorChannelInterface *iface = static_cast<TapSensorChannelInterface *>(m_sensorInterface);
+        if (!iface) {
+            qWarning() << "Sensor interface is not initialized";
+            return;
+        }
+        iface->setTapType(m_isDoubleTapSensor?TapSensorChannelInterface::Double:TapSensorChannelInterface::Single);
+    }
 
     SensorfwSensorBase::start();
     // Set tap type (single/double)
