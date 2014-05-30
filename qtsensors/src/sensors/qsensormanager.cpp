@@ -101,9 +101,16 @@ public:
         if (config.isEmpty()) return; // QStandardPaths is broken?
         config += QLatin1String("/QtProject/Sensors.conf");
 #endif
-        if (!QFile::exists(config)) return;
+        qDebug() << "Loading config from" << config;
+        if (!QFile::exists(config)) {
+            qWarning() << "There is no config file" << config;
+            return;
+        }
         QFile cfgfile(config);
-        if (!cfgfile.open(QFile::ReadOnly)) return;
+        if (!cfgfile.open(QFile::ReadOnly)) {
+            qWarning() << "Can't open config file" << config;
+            return;
+        }
 
         QTextStream stream(&cfgfile);
         QString line;
@@ -169,13 +176,19 @@ Q_GLOBAL_STATIC(QSensorManagerPrivate, sensorManagerPrivate)
 
 static void initPlugin(QObject *o)
 {
-    if (!o) return;
+    SENSORLOG() << "Init plugin" << o;
+    if (!o) {
+        qWarning() << "Null plugin" << o;
+        return;
+    }
 
     QSensorManagerPrivate *d = sensorManagerPrivate();
     if (!d) return; // hardly likely but just in case...
 
-    if (d->seenPlugins.contains(o))
+    if (d->seenPlugins.contains(o)) {
+        SENSORLOG() << "Plugin is seen" << o;
         return;
+    }
 
     QSensorChangesInterface *changes = qobject_cast<QSensorChangesInterface*>(o);
     if (changes)
@@ -184,8 +197,11 @@ static void initPlugin(QObject *o)
     QSensorPluginInterface *plugin = qobject_cast<QSensorPluginInterface*>(o);
 
     if (plugin) {
+        SENSORLOG() << "Register sensors for " << plugin;
         d->seenPlugins.insert(o);
         plugin->registerSensors();
+    } else {
+        qWarning() << "Can't cast to plugin" << o;
     }
 }
 
