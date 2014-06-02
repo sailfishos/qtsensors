@@ -75,6 +75,7 @@ void SensorfwGyroscope::slotFrameAvailable(const QVector<XYZ>&  frame)
 
 bool SensorfwGyroscope::doConnect()
 {
+    Q_ASSERT(m_sensorInterface);
     if (m_bufferSize==1)
         return QObject::connect(m_sensorInterface, SIGNAL(dataAvailable(const XYZ&)), this, SLOT(slotDataAvailable(const XYZ&)));
     return QObject::connect(m_sensorInterface, SIGNAL(frameAvailable(const QVector<XYZ>& )),this, SLOT(slotFrameAvailable(const QVector<XYZ>& )));

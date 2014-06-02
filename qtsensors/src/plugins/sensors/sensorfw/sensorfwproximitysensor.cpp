@@ -46,8 +46,8 @@ char const * const SensorfwProximitySensor::id("sensorfw.proximitysensor");
 
 SensorfwProximitySensor::SensorfwProximitySensor(QSensor *sensor)
     : SensorfwSensorBase(sensor),
+      m_initDone(false),
       m_exClose(false)
-    , m_initDone(0)
 {
     init();
     setReading<QProximityReading>(&m_reading);
@@ -79,6 +79,7 @@ void SensorfwProximitySensor::slotDataAvailable(const Unsigned& data)
 
 bool SensorfwProximitySensor::doConnect()
 {
+    Q_ASSERT(m_sensorInterface);
     return (QObject::connect(m_sensorInterface, SIGNAL(dataAvailable(const Unsigned&)),
                              this, SLOT(slotDataAvailable(const Unsigned&))));
 }
