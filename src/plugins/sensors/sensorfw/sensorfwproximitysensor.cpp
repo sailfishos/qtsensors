@@ -68,7 +68,6 @@ void SensorfwProximitySensor::start()
     SensorfwSensorBase::start();
 }
 
-
 void SensorfwProximitySensor::slotDataAvailable(const Unsigned& data)
 {
     bool close = data.x()? true: false;

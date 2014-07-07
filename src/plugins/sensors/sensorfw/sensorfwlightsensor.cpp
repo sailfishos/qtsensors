@@ -66,7 +66,6 @@ bool SensorfwLightSensor::doConnect()
                             this, SLOT(slotDataAvailable(Unsigned)));
 }
 
-
 QString SensorfwLightSensor::sensorName() const
 {
     return "alssensor";

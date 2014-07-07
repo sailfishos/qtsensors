@@ -78,7 +78,6 @@ void SensorfwMagnetometer::slotDataAvailable(const MagneticField& data)
     newReadingAvailable();
 }
 
-
 void SensorfwMagnetometer::slotFrameAvailable(const QVector<MagneticField>& frame)
 {
     for (int i=0, l=frame.size(); i<l; i++) {
