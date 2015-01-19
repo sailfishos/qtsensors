@@ -42,12 +42,12 @@
 #include "sensorfwproximitysensor.h"
 
 char const * const SensorfwProximitySensor::id("sensorfw.proximitysensor");
-//bool SensorfwProximitySensor::m_initDone = false;
 
 SensorfwProximitySensor::SensorfwProximitySensor(QSensor *sensor)
     : SensorfwSensorBase(sensor),
       m_initDone(false),
-      m_exClose(false)
+      m_exClose(false),
+      firstRun(true)
 {
     init();
     setReading<QProximityReading>(&m_reading);
@@ -63,20 +63,20 @@ void SensorfwProximitySensor::start()
         Unsigned data(((ProximitySensorChannelInterface*)m_sensorInterface)->proximity());
         m_reading.setClose(data.x()? true: false);
         m_reading.setTimestamp(data.UnsignedData().timestamp_);
-        newReadingAvailable();
     }
     SensorfwSensorBase::start();
 }
 
-
 void SensorfwProximitySensor::slotDataAvailable(const Unsigned& data)
 {
     bool close = data.x()? true: false;
-    if (close == m_exClose) return;
+    if (!firstRun && close == m_exClose) return;
     m_reading.setClose(close);
     m_reading.setTimestamp(data.UnsignedData().timestamp_);
     newReadingAvailable();
     m_exClose = close;
+    if (firstRun)
+        firstRun = false;
 }
 
 bool SensorfwProximitySensor::doConnect()

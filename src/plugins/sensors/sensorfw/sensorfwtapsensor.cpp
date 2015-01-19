@@ -116,7 +116,6 @@ bool SensorfwTapSensor::doConnect()
                             this, SLOT(slotDataAvailable(Tap)));
 }
 
-
 QString SensorfwTapSensor::sensorName() const
 {
     return "tapsensor";

@@ -67,7 +67,6 @@ void SensorfwCompass::slotDataAvailable(const Compass& data)
     newReadingAvailable();
 }
 
-
 bool SensorfwCompass::doConnect()
 {
     Q_ASSERT(m_sensorInterface);
