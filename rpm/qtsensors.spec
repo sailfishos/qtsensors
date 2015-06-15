@@ -145,6 +145,11 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_libdir}/qt5/plugins/sensors/libqtsensors_vbox.so
 %{_sysconfdir}/xdg/QtProject/Sensors.conf
 
+%files plugin-vbox
+%defattr(-,root,root,-)
+%{_libdir}/qt5/plugins/sensors/libqtsensors_vbox.so
+%{_sysconfdir}/xdg/QtProject/Sensors.conf
+
 %files plugin-generic
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
