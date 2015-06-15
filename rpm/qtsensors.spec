@@ -14,6 +14,7 @@ BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(sensord-qt5)
+BuildRequires:  ssu-devel
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
@@ -53,6 +54,14 @@ Requires:   %{name} = %{version}-%{release}
 %description plugin-sensorfw
 This package contains the sensorfw plugin for sensors
 
+%package plugin-vbox
+Summary:    vbox emulator sensors plugin
+Group:      Qt/Qt
+Requires:   %{name} = %{version}-%{release}
+Conflicts: plugin-sensorfw plugin-generic
+%description plugin-vbox
+This package contains the vbox plugin for sensors
+
 %package plugin-generic
 Summary:    Generic sensors plugin
 Group:      Qt/Qt
@@ -84,7 +93,7 @@ This package contains the gesture plugin for sensors
 %build
 export QTDIR=/usr/share/qt5
 touch .git
-%qmake5 CONFIG+=sensorfw
+%qmake5 CONFIG+=sensorfw CONFIG+=vbox CONFIG+=ssu
 make %{?_smp_mflags}
 
 %install
@@ -130,6 +139,11 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %files plugin-sensorfw
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_sensorfw.so
+%{_sysconfdir}/xdg/QtProject/Sensors.conf
+
+%files plugin-vbox
+%defattr(-,root,root,-)
+%{_libdir}/qt5/plugins/sensors/libqtsensors_vbox.so
 %{_sysconfdir}/xdg/QtProject/Sensors.conf
 
 %files plugin-generic
