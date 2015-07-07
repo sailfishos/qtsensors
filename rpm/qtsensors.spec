@@ -130,7 +130,6 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %files plugin-sensorfw
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/sensors/libqtsensors_sensorfw.so
-%{_sysconfdir}/xdg/QtProject/Sensors.conf
 
 %files plugin-generic
 %defattr(-,root,root,-)
