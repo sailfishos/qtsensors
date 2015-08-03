@@ -53,16 +53,10 @@
 #endif
 #include <QDebug>
 
-#if defined(QT_USE_SSU)
-#include <ssudeviceinfo.h>
-#endif // QT_USE_SSU
-
-
 VBoxCommon::VBoxCommon(QSensor *sensor)
     : QSensorBackend(sensor)
     , m_timerid(0)
 {
-    getDeviceModel();
 }
 
 void VBoxCommon::start()
@@ -110,14 +104,5 @@ quint64 VBoxCommon::getTimestamp()
 
     quint64 result = (tv.tv_sec * 1000000ULL) + (tv.tv_nsec * 0.001); // scale to microseconds
     return result;
-}
-
-void VBoxCommon::getDeviceModel()
-{
-#if defined(QT_USE_SSU)
-    if (m_model.isEmpty()) {
-        m_model = SsuDeviceInfo().displayName(Ssu::DeviceModel);
-    }
-#endif
 }
 
