@@ -61,8 +61,6 @@ protected:
 
 private:
     int m_timerid;
-    QString m_model;
-    void getDeviceModel();
 };
 
 #endif

@@ -14,7 +14,6 @@ BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qmake
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(sensord-qt5)
-BuildRequires:  ssu-devel
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
@@ -93,7 +92,7 @@ This package contains the gesture plugin for sensors
 %build
 export QTDIR=/usr/share/qt5
 touch .git
-%qmake5 CONFIG+=sensorfw CONFIG+=vbox CONFIG+=ssu
+%qmake5 CONFIG+=sensorfw CONFIG+=vbox
 make %{?_smp_mflags}
 
 %install
