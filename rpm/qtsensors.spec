@@ -100,6 +100,8 @@ rm -rf %{buildroot}
 %qmake5_install
 # Remove unneeded .la files
 rm -f %{buildroot}/%{_libdir}/*.la
+# Remove unneeded cmake file
+rm -f %{buildroot}/%{_libdir}/cmake/Qt5Sensors/Qt5Sensors_genericSensorPlugin.cmake
 %fdupes %{buildroot}/%{_includedir}
 
 
