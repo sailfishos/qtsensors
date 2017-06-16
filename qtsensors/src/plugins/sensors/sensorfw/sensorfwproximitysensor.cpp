@@ -59,17 +59,21 @@ void SensorfwProximitySensor::start()
 {
     if (m_sensorInterface) {
         Unsigned data(((ProximitySensorChannelInterface*)m_sensorInterface)->proximity());
-        m_reading.setClose(data.x()? true: false);
+        // Note: Unlike reflectanceDataAvailable() signal, the query
+        //       above returns only integer reflectance without the
+        //       boolean withinProximity value.
+        bool close = (data.x() == 0);
+        m_exClose = close;
+        m_reading.setClose(close);
         m_reading.setTimestamp(data.UnsignedData().timestamp_);
         newReadingAvailable();
     }
     SensorfwSensorBase::start();
 }
 
-
-void SensorfwProximitySensor::slotDataAvailable(const Unsigned& data)
+void SensorfwProximitySensor::slotReflectanceDataAvailable(const Proximity& data)
 {
-    bool close = data.x()? true: false;
+    bool close = (data.reflectance() == 0);
     if (close == m_exClose) return;
     m_reading.setClose(close);
     m_reading.setTimestamp(data.UnsignedData().timestamp_);
@@ -80,8 +84,8 @@ void SensorfwProximitySensor::slotDataAvailable(const Unsigned& data)
 bool SensorfwProximitySensor::doConnect()
 {
     Q_ASSERT(m_sensorInterface);
-    return (QObject::connect(m_sensorInterface, SIGNAL(dataAvailable(const Unsigned&)),
-                             this, SLOT(slotDataAvailable(const Unsigned&))));
+    return QObject::connect(m_sensorInterface, SIGNAL(reflectanceDataAvailable(const Proximity&)),
+                            this, SLOT(slotReflectanceDataAvailable(const Proximity&)));
 }
 
 
