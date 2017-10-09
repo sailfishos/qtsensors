@@ -5,6 +5,7 @@ HEADERS += sensorfwsensorbase.h \
     sensorfwgyroscope.h \
     sensorfwmagnetometer.h \
     sensorfworientationsensor.h \
+    sensorfwpressuresensor.h \
     sensorfwproximitysensor.h \
     sensorfwrotationsensor.h \
     sensorfwtapsensor.h    \
@@ -18,6 +19,7 @@ SOURCES += sensorfwsensorbase.cpp \
     sensorfwgyroscope.cpp \
     sensorfwmagnetometer.cpp \
     sensorfworientationsensor.cpp \
+    sensorfwpressuresensor.cpp \
     sensorfwproximitysensor.cpp \
     sensorfwirproximitysensor.cpp \
     sensorfwrotationsensor.cpp \
