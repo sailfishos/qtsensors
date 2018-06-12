@@ -80,7 +80,7 @@ This package contains the gesture plugin for sensors
 #### Build section
 
 %prep
-%setup -q -n %{name}-%{version}/qtsensors
+%setup -q -n %{name}-%{version}
 
 %build
 export QTDIR=/usr/share/qt5
