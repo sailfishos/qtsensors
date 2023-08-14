@@ -74,7 +74,6 @@ This package contains the gesture plugin for sensors
 %setup -q -n %{name}-%{version}
 
 %build
-export QTDIR=/usr/share/qt5
 touch .git
 %qmake5 CONFIG+=sensorfw
 make %{?_smp_mflags}
@@ -94,44 +93,42 @@ rm -f %{buildroot}/%{_sysconfdir}/xdg/QtProject/Sensors.conf
 %fdupes %{buildroot}/%{_includedir}
 
 
-%post
-/sbin/ldconfig
-%postun
-/sbin/ldconfig
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 
 %files
 %defattr(-,root,root,-)
 %license LICENSE.LGPLv* LGPL_EXCEPTION.txt
 %license LICENSE.GPLv3 LICENSE.FDL
-%{_libdir}/libQt5Sensors.so.5
-%{_libdir}/libQt5Sensors.so.5.*
+%{_qt5_libdir}/libQt5Sensors.so.5
+%{_qt5_libdir}/libQt5Sensors.so.5.*
 
 %files devel
 %defattr(-,root,root,-)
-%{_libdir}/libQt5Sensors.so
-%{_libdir}/libQt5Sensors.prl
-%{_libdir}/pkgconfig/*
-%{_includedir}/qt5/*
-%{_datadir}/qt5/mkspecs/
-%{_libdir}/cmake/
+%{_qt5_libdir}/libQt5Sensors.so
+%{_qt5_libdir}/libQt5Sensors.prl
+%{_qt5_libdir}/pkgconfig/*
+%{_qt5_includedir}/*
+%{_qt5_archdatadir}/mkspecs/
+%{_qt5_libdir}/cmake/
 
 %files -n qt5-qtdeclarative-import-sensors
 %defattr(-,root,root,-)
-%{_libdir}/qt5/qml/QtSensors/
+%{_qt5_archdatadir}/qml/QtSensors/
 
 %files plugin-sensorfw
 %defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensors/libqtsensors_sensorfw.so
+%{_qt5_plugindir}/sensors/libqtsensors_sensorfw.so
 
 %files plugin-generic
 %defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensors/libqtsensors_generic.so
+%{_qt5_plugindir}/sensors/libqtsensors_generic.so
 
 %files plugin-gestures-shake
 %defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensorgestures/libqtsensorgestures_shakeplugin.so
+%{_qt5_plugindir}/sensorgestures/libqtsensorgestures_shakeplugin.so
 
 %files plugin-gestures-sensor
 %defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/sensorgestures/libqtsensorgestures_plugin.so
+%{_qt5_plugindir}/sensorgestures/libqtsensorgestures_plugin.so
